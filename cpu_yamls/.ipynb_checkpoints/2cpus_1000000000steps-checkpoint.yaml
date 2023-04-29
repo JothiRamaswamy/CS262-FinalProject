@@ -5,5 +5,5 @@ resources:
   candidates:
   - cloud: aws
   - cloud: gcp
-workdir: ./scripts
+workdir: ~/scripts
 run: python cpu_task.py 2 1000000000

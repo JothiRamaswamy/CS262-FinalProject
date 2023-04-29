@@ -5,4 +5,4 @@ resources:
   - cloud: gcp
   cloud: aws
   cpus: 2
-run: " | python ../cpu_task.py 2 100000000000"
+run: python ../cpu_task.py 10000000000
