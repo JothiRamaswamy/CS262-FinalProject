@@ -1,0 +1,9 @@
+name: example
+resources:
+  cpus: 8
+  cloud: aws
+  candidates:
+  - cloud: aws
+  - cloud: gcp
+workdir: ./scripts
+run: python cpu_task.py 8 10000000000

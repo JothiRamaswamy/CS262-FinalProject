@@ -1,0 +1,8 @@
+name: example
+resources:
+  candidates:
+  - cloud: aws
+  - cloud: gcp
+  cloud: aws
+  cpus: 2
+run: " | python ../cpu_task.py 2 100000000000"
