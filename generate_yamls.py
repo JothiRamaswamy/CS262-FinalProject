@@ -3,7 +3,7 @@ with open('example.yaml', 'r') as file:
     cpu_yaml_template = yaml.safe_load(file)
     
 cpus = [2,4,8]
-steps = [1e9, 5e9, 1e10, 5e10, 1e11]
+steps = [1e5, 1e6, 1e7]
 
 for cpu in cpus:
     for step in steps:
