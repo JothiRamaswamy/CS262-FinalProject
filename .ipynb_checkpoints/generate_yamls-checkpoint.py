@@ -17,7 +17,23 @@ with open('gpu_example.yaml', 'r') as file:
     gpu_yaml_template = yaml.safe_load(file)
 
 steps = [1e6, 5e6, 1e7, 5e7, 1e8]
+gpus = ['V100', "K80", "T4"]
 for step in steps:
     gpu_yaml_template['run'] = f"python gpu_task.py {int(step)}"
-    with open(f'./gpu_yamls/{int(step)}steps.yaml', 'w') as file:
+    with open(f'./gpu_yamls/aws_gpu_yamls/{int(step)}steps.yaml', 'w') as file:
             yaml.dump(gpu_yaml_template, file, sort_keys=False)
+
+            
+with open('gcp_example.yaml', 'r') as file:
+    gpu_yaml_template = yaml.safe_load(file)
+
+steps = [1e6, 5e6, 1e7, 5e7, 1e8]
+gpus = ['V100', "K80", "T4"]
+
+for step in steps:
+    for gpu in gpus:
+        gpu_yaml_template['run'] = f"python gpu_task.py {int(step)}"
+        gpu_yaml_template['resources']['candidates'][0]['accelerators'] = gpu
+        with open(f'./gpu_yamls/gcp_gpu_yamls/{gpu}{int(step)}steps.yaml', 'w') as file:
+                yaml.dump(gpu_yaml_template, file, sort_keys=False)
+            
