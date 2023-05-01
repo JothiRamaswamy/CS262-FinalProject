@@ -1,0 +1,16 @@
+name: gpu_example
+resources:
+  cloud: aws
+  candidates:
+  - accelerators: A100
+  - accelerators: V100
+  - accelerators: T4
+  - accelerators: A100
+    cloud: gcp
+  - accelerators: V100
+    cloud: gcp
+  - accelerators: T4
+    cloud: gcp
+workdir: ./scripts
+setup: pip install torch
+run: python gpu_task.py 1000000

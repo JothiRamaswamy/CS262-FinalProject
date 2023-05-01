@@ -1,0 +1,7 @@
+name: gpu_example
+resources:
+    cloud: gcp
+    accelerators: V100
+workdir: ./scripts
+setup: "pip install torch"
+run: "python gpu_task.py 1000"
