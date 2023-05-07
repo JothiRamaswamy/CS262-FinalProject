@@ -1,0 +1,19 @@
+// python3 -m grpc_tools.protoc -I protos --python_out=. --grpc_python_out=. protos/chat.proto
+
+syntax = "proto3";
+
+message ClientMessage {
+    string aws_script = 1;
+    string gcp_script = 2;
+  }
+
+message ServerMessage {
+    string cpu_results = 1;
+    string gpu_results = 2;
+}
+
+service TaskService {
+
+    rpc RunTask (ClientMessage) returns (ServerMessage) {}
+
+}

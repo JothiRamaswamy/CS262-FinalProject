@@ -1,0 +1,11 @@
+name: aws_gpu_example
+resources:
+  cloud: aws
+  candidates:
+  - accelerators: V100
+  - accelerators: K80
+  - accelerators: T4
+workdir: ./scripts
+setup: pip3 install --upgrade pip && pip3 install torch==1.12.1+cu113 --extra-index-url
+  https://download.pytorch.org/whl/cu113
+run: python gpu_AWS_script.py 5000000

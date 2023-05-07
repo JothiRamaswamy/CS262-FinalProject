@@ -1,0 +1,9 @@
+name: gcp_gpu_example
+resources:
+  cloud: gcp
+  candidates:
+  - accelerators: T4
+workdir: ./scripts
+setup: pip3 install --upgrade pip && pip3 install torch==1.12.1+cu113 --extra-index-url
+  https://download.pytorch.org/whl/cu113
+run: python gpu_GCP_script.py 1000000
