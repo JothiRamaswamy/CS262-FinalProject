@@ -28,7 +28,7 @@ def split_tasks(script):
         the lines of the CPU-heavy tasks script, and the second list contains the lines of
         the GPU-heavy tasks script.
     """
-    openai.api_key = os.environ["OPEN_AI_KEY"]
+    openai.api_key = os.environ["OPENAI_API_KEY"]
 
     prompt = (
         f"Given the following Python script, separate it into two separate scripts: "
