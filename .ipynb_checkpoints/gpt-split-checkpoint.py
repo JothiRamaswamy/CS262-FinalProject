@@ -27,16 +27,19 @@ def split_tasks(script):
         f"{{gpu_script}}"
     )
 
-    response = openai.Completion.create(
-        engine="text-davinci-codex-002",
-        prompt=prompt,
-        max_tokens=1024,
-        n=1,
-        stop=None,
-        temperature=0.5,
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are an expert software engineer",
+            },
+            {"role": "user", "content": prompt},
+        ],
+        max_tokens=2048,
     )
-
-    output = response.choices[0].text.strip().split("---\n")
+    
+    output = response["choices"][0]["message"]["content"].text.strip().split("---\n")
 
     cpu_script = output[1].strip()
     gpu_script = output[3].strip()
