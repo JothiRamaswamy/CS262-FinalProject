@@ -28,24 +28,24 @@ def split_tasks(script):
         the lines of the CPU-heavy tasks script, and the second list contains the lines of
         the GPU-heavy tasks script.
     """
-    openai.api_key = os.environ["OPENAI_API_KEY"]
-
-    prompt = (
-        f"Given the following Python script, separate it into two separate scripts: "
-        f"one containing CPU-heavy computation tasks and the other containing GPU-heavy computation tasks.\n\n"
-        f"---\n"
-        f"{script}\n"
-        f"---\n\n"
-        f"CPU-heavy tasks script:\n"
-        f"---\n"
-        f"{{cpu_script}}\n"
-        f"---\n\n"
-        f"GPU-heavy tasks script:\n"
-        f"---\n"
-        f"{{gpu_script}}"
-    )
 
     try:
+        openai.api_key = os.environ["OPENAI_API_KEY"]
+
+        prompt = (
+            f"Given the following Python script, separate it into two separate scripts: "
+            f"one containing CPU-heavy computation tasks and the other containing GPU-heavy computation tasks.\n\n"
+            f"---\n"
+            f"{script}\n"
+            f"---\n\n"
+            f"CPU-heavy tasks script:\n"
+            f"---\n"
+            f"{{cpu_script}}\n"
+            f"---\n\n"
+            f"GPU-heavy tasks script:\n"
+            f"---\n"
+            f"{{gpu_script}}"
+        )
         response = openai.Completion.create(
             engine="text-davinci-codex-003",
             prompt=prompt,

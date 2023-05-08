@@ -10,6 +10,42 @@ import tasks_pb2_grpc
 from server import TasksService
 from concurrent import futures
 
+
+def validate_files(aws_script, gcp_script):
+    """
+    Given file paths to AWS and GCP scripts, validate that the files exist and are readable.
+    If both files are valid, return the contents of the files.
+    If one or both files are invalid, print an error message and return None.
+
+    Args:
+    - aws_script (str): Path to the AWS script file
+    - gcp_script (str): Path to the GCP script file
+
+    Returns:
+    - tuple: A tuple containing the contents of the AWS and GCP script files in strings, if both files are valid.
+      If one or both files are invalid, return None.
+    """
+    try:
+        # Open and read the AWS script file
+        with open(aws_script) as f:
+            aws_script_text = f.read()
+    except:
+        # Catch any exceptions that occur when trying to read the AWS script file
+        print("AWS file invalid")
+        return None
+    try:
+        # Open and read the GCP script file
+        with open(gcp_script) as f:
+            gcp_script_text = f.read()
+    except:
+        # Catch any exceptions that occur when trying to read the GCP script file
+        print("GCP file invalid")
+        return None
+
+    # If both files are valid, return their contents in a tuple
+    return (aws_script_text, gcp_script_text)
+  
+
 def start_client(this_client, stubs):
   """
     Start a client to get user input for AWS and GCP script paths, read the files, 
@@ -25,19 +61,8 @@ def start_client(this_client, stubs):
   while(True):
     try:
       aws_script = input("AWS text script path for us to run on the cloud: ")
-      try:
-        with open(aws_script) as f:
-          aws_script_text = f.read()
-      except:
-        print("File invalid")
-        continue
       gcp_script = input("GCP text script path for us to run on the cloud: ")
-      try:
-        with open(gcp_script) as f:
-          gcp_script_text = f.read()
-      except:
-        print("File invalid")
-        continue
+      aws_script_text, gcp_script_text = validate_files(aws_script, gcp_script)
 
       # Call the run_task function to execute the user's input scripts
       this_client.run_task(aws_script=aws_script_text, gcp_script=gcp_script_text, stubs=stubs)

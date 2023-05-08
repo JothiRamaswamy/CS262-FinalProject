@@ -15,11 +15,15 @@ class TasksService(tasks_pb2_grpc.TaskServiceServicer):
             gcp_script (str): The script for GCP.
         """
         # Writes the AWS script to a file.
-        with open("aws_script.py", "w") as f:
-            f.write(aws_script)
-        # Writes the GCP script to a file.
-        with open("gcp_script.py", "w") as f:
-            f.write(gcp_script)
+        try:
+            with open("aws_script.py", "w") as f:
+                f.write(aws_script)
+            # Writes the GCP script to a file.
+            with open("gcp_script.py", "w") as f:
+                f.write(gcp_script)
+            return 0
+        except:
+            return 1
         
 
     def RunTask(self, request, context):
